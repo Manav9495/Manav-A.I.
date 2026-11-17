@@ -1,0 +1,21 @@
+{
+  "name": "manav-ai",
+  "version": "1.0.0",
+  "description": "Manav A.I. — Private, local conversational AI powered by Ollama and Llama 3.1",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "node backend/server.js"
+  },
+  "keywords": [
+    "manav-ai",
+    "ai",
+    "chatbot",
+    "ollama",
+    "llama3",
+    "local-ai",
+    "private-ai"
+  ],
+  "author": "Manav Tyagi",
+  "license": "MIT"
+}
