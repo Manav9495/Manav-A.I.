@@ -323,15 +323,25 @@ document.addEventListener('DOMContentLoaded', () => {
             li.setAttribute('role', 'button');
             li.tabIndex = 0;
 
+            const itemLeft = document.createElement('div');
+            itemLeft.className = 'history-item-left';
+
+            const iconSpan = document.createElement('span');
+            iconSpan.className = 'history-item-icon';
+            iconSpan.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`;
+
             const titleSpan = document.createElement('span');
             titleSpan.className = 'history-title-wrap';
             titleSpan.textContent = conv.title || 'Untitled Chat';
+
+            itemLeft.appendChild(iconSpan);
+            itemLeft.appendChild(titleSpan);
 
             const delBtn = document.createElement('button');
             delBtn.className = 'history-delete-btn';
             delBtn.setAttribute('aria-label', `Delete ${conv.title}`);
             delBtn.title = 'Delete chat';
-            delBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`;
+            delBtn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`;
             delBtn.addEventListener('click', (e) => deleteConversation(conv.id, e));
 
             li.addEventListener('click', () => {
@@ -346,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            li.appendChild(titleSpan);
+            li.appendChild(itemLeft);
             li.appendChild(delBtn);
             historyList.appendChild(li);
         });
@@ -704,10 +714,18 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // New Chat
+        // New Chat & Keyboard Shortcut (Cmd+K / Ctrl+K)
         newChatBtn.addEventListener('click', () => {
             createNewConversation(true);
             if (window.innerWidth <= 768) closeSidebar();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                createNewConversation(true);
+                if (window.innerWidth <= 768) closeSidebar();
+            }
         });
 
         // Header model selector — live switch
